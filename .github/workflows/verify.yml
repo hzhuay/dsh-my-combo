@@ -1,0 +1,39 @@
+name: verify
+
+# 轻量冒烟：PR / push 时确认生成物一致、语法正确、挂载行齐全。
+# （完整浏览器级 E2E 可作为第二阶段加入：装 profile + 启动 dsh web + Playwright 截图断言）
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'aggregate.json'
+      - 'cordis.patch.yml'
+      - 'lib/**'
+      - 'scripts/**'
+  push:
+    branches: [main, master]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: aggregate 一致性
+        run: |
+          node scripts/aggregate.mjs
+          git diff --exit-code cordis.patch.yml || { echo 'cordis.patch.yml 过期，请运行 node scripts/aggregate.mjs'; exit 1; }
+
+      - name: 语法检查
+        run: |
+          node --check lib/index.js
+          node --check lib/client.js
+          node --check scripts/aggregate.mjs
+          node --check scripts/bump.mjs
+
+      - name: 挂载行齐全
+        run: |
+          node -e "const s=require('fs').readFileSync('cordis.patch.yml','utf8');['combo-compat','combo-web-ui-settings','combo-cost-meter','combo-market','combo-aionui-panel','combo-task-board','combo-git-graph','combo-remote-web-ui','combo-ssh','combo-liangshen','combo-community-plugins'].forEach(id=>{if(!s.includes(id)){console.error('missing row '+id);process.exit(1)}});console.log('11 rows present')"

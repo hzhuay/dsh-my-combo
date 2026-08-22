@@ -1,0 +1,61 @@
+{
+  "rows": [
+    {
+      "id": "combo-compat",
+      "name": "dsh-my-combo"
+    },
+    {
+      "id": "combo-web-ui-settings",
+      "name": "@linxin666/dsh-client-ui-web-ui-settings"
+    },
+    {
+      "id": "combo-cost-meter",
+      "name": "dsh-cost-meter",
+      "config": {
+        "sidebar": true,
+        "position": "dock",
+        "balance": {
+          "display": "sidebar"
+        },
+        "goQuota": {
+          "display": "sidebar"
+        },
+        "corner": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "id": "combo-market",
+      "name": "dshmarket"
+    },
+    {
+      "id": "combo-aionui-panel",
+      "name": "@linxin666/dsh-client-ui-aionui-panel"
+    },
+    {
+      "id": "combo-task-board",
+      "name": "@linxin666/dsh-client-ui-task-board"
+    },
+    {
+      "id": "combo-git-graph",
+      "name": "@linxin666/dsh-client-ui-git-graph"
+    },
+    {
+      "id": "combo-remote-web-ui",
+      "name": "@linxin666/dsh-remote-web-ui"
+    },
+    {
+      "id": "combo-ssh",
+      "name": "@linxin666/dsh-ssh"
+    },
+    {
+      "id": "combo-liangshen",
+      "name": "@linxin666/dsh-liangshen"
+    },
+    {
+      "id": "combo-community-plugins",
+      "name": "@linxin666/dsh-client-ui-community-plugins"
+    }
+  ]
+}

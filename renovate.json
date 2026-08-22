@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "rangeStrategy": "pin",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^@linxin666/"
+      ],
+      "groupName": "linxin666 web-ui family",
+      "commitMessageTopic": "linxin666 web-ui family"
+    },
+    {
+      "matchDatasources": [
+        "git-tags"
+      ],
+      "groupName": "git tag dependencies"
+    }
+  ],
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 2
+}

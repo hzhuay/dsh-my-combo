@@ -1,0 +1,42 @@
+name: release
+
+# 推送 v* tag 时自动生成 GitHub Release（配合 dsh-update / GUI 徽标识别最新版）
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 生成 changelog
+        id: changelog
+        run: |
+          PREV=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || true)
+          if [ -n "$PREV" ]; then
+            LOG=$(git log --oneline --no-merges "$PREV"..HEAD)
+          else
+            LOG=$(git log --oneline --no-merges -20)
+          fi
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          body: |
+            ## ${{ github.ref_name }}
+
+            ${{ steps.changelog.outputs.log }}
+
+            ### 本地更新
+            ```bash
+            dsh-update          # 或 dsh-update --yes
+            dsh restart
+            ```

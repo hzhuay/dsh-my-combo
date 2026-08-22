@@ -1,0 +1,54 @@
+name: upstream-check
+
+# 每天 02:00 UTC 检查一次上游插件是否有新版本；
+# 有则用 scripts/bump.mjs 应用升级并开 PR（不会自动合并）。
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-and-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 检查上游是否有更新
+        id: check
+        continue-on-error: true
+        run: node scripts/bump.mjs --check
+
+      - name: 无更新
+        if: steps.check.outcome == 'success'
+        run: echo '上游依赖已是最新'
+
+      - name: 应用升级并 bump combo 版本
+        if: steps.check.outcome == 'failure'
+        run: node scripts/bump.mjs
+
+      - name: 重新生成 cordis.patch.yml（如 manifest 有变）
+        if: steps.check.outcome == 'failure'
+        run: node scripts/aggregate.mjs
+
+      - name: 创建升级 PR
+        if: steps.check.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: bump upstream dependencies'
+          branch: auto/upstream-bump
+          delete-branch: true
+          title: 'chore: 上游插件有更新，请验证后合并'
+          body: |
+            由上游监控自动生成（scripts/bump.mjs --check）。
+
+            合并前请验证：
+            - 本地 `dsh plugin --profile web update dsh-my-combo` 后重启 dsh web；
+            - 按 README 验证清单检查：首页余额、footer 布局、选中插件可用、未选插件不出现；
+            - 若有 DOM/CSS 兼容变化，同步更新 lib/client.js。
