@@ -22,23 +22,25 @@ jobs:
 
       - name: 检查上游是否有更新
         id: check
-        continue-on-error: true
-        run: node scripts/bump.mjs --check
-
-      - name: 无更新
-        if: steps.check.outcome == 'success'
-        run: echo '上游依赖已是最新'
+        run: |
+          if node scripts/bump.mjs --check; then
+            echo "updates=false" >> "$GITHUB_OUTPUT"
+            echo '上游依赖已是最新'
+          else
+            echo "updates=true" >> "$GITHUB_OUTPUT"
+            echo '发现上游更新，准备开升级 PR'
+          fi
 
       - name: 应用升级并 bump combo 版本
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outputs.updates == 'true'
         run: node scripts/bump.mjs
 
       - name: 重新生成 cordis.patch.yml（如 manifest 有变）
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outputs.updates == 'true'
         run: node scripts/aggregate.mjs
 
       - name: 创建升级 PR
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outputs.updates == 'true'
         uses: peter-evans/create-pull-request@v7.0.11
         with:
           commit-message: 'chore: bump upstream dependencies'
