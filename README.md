@@ -2,13 +2,12 @@
 
 DSH Web 插件整合包：**引用挑选的开源插件 + 自己的兼容层**（方案 A）。用户只需安装本包一个，即可获得整套选中的插件与统一的布局修复。
 
-## 包含的插件（11 个上游 + 1 个自身兼容层）
+## 包含的插件（10 个上游 + 1 个自身兼容层）
 
 | 行 id | 上游包 | 说明 |
 |---|---|---|
 | `combo-compat` | 自身 `dsh-my-combo` | 兼容层：列容器 shim + footer 布局 shim + CSS |
 | `combo-cost-meter` | `dsh-cost-meter`（git #v1.5.40） | 余额/费用统计，默认显示在首页侧边栏 |
-| `combo-market` | `dshmarket` | 可视化插件市场 |
 | `combo-aionui-panel` | `@linxin666/dsh-client-ui-aionui-panel` | 右侧文件树/预览面板 |
 | `combo-task-board` | `@linxin666/dsh-client-ui-task-board` | 任务看板 |
 | `combo-git-graph` | `@linxin666/dsh-client-ui-git-graph` | Git 分支图 |
@@ -64,9 +63,15 @@ dsh-my-combo/
 > 发布后用户侧走正常安装（github/npm 引用），combo 的传递依赖会正常解析，无需 workspace。
 > 本机 pnpm 11 供应链策略需要在 `pnpm-workspace.yaml` 里放行：`@linxin666/*` 加入 `minimumReleaseAgeExclude`（需引号），并设置 `blockExoticSubdeps: false`（combo 内含 git 依赖）。
 
-安装前从 `~/.dsh/profiles/web/package.json` 的 `dependencies` 与 `dsh.profile.bundles` 中**移除**独立安装的：
-`dsh-cost-meter`、`@linxin666/dsh-web-ui-all`、`dshmarket`，
-避免同一插件双份加载。最后重启 `dsh web`。
+安装前从 `~/.dsh/profiles/web/package.json` 的 `dependencies` 与 `dsh.profile.bundles` 中**移除**此前独立安装的 `dsh-cost-meter`、`@linxin666/dsh-web-ui-all`，避免同一插件双份加载。
+
+> `dshmarket`（插件市场）已从 combo 拆出，**作为独立插件单独安装**：
+>
+> ```bash
+> dsh plugin --profile web add dshmarket
+> ```
+>
+> 并在 `dsh.profile.bundles` 中加入 `"dshmarket"`。最后重启 `dsh web`。
 
 ## 上游更新监控（整合包如何感知插件更新）
 

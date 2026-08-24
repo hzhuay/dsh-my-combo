@@ -8,8 +8,6 @@
     name: "@linxin666/dsh-client-ui-web-ui-settings"
   - id: "combo-cost-meter"
     name: "dsh-cost-meter"
-  - id: "combo-market"
-    name: "dshmarket"
   - id: "combo-aionui-panel"
     name: "@linxin666/dsh-client-ui-aionui-panel"
   - id: "combo-task-board"

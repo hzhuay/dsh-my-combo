@@ -49,8 +49,7 @@
     "@linxin666/dsh-liangshen": "0.3.2",
     "@linxin666/dsh-remote-web-ui": "0.3.2",
     "@linxin666/dsh-ssh": "0.3.2",
-    "dsh-cost-meter": "github:Han-1413141/dsh-cost-meter#v1.5.42",
-    "dshmarket": "1.21.2"
+    "dsh-cost-meter": "github:Han-1413141/dsh-cost-meter#v1.5.42"
   },
   "repository": {
     "type": "git",

@@ -26,10 +26,6 @@
       }
     },
     {
-      "id": "combo-market",
-      "name": "dshmarket"
-    },
-    {
       "id": "combo-aionui-panel",
       "name": "@linxin666/dsh-client-ui-aionui-panel"
     },

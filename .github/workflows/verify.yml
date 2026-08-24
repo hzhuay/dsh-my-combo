@@ -36,4 +36,4 @@ jobs:
 
       - name: 挂载行齐全
         run: |
-          node -e "const s=require('fs').readFileSync('cordis.patch.yml','utf8');['combo-compat','combo-web-ui-settings','combo-cost-meter','combo-market','combo-aionui-panel','combo-task-board','combo-git-graph','combo-remote-web-ui','combo-ssh','combo-liangshen','combo-community-plugins'].forEach(id=>{if(!s.includes(id)){console.error('missing row '+id);process.exit(1)}});console.log('11 rows present')"
+          node -e "const s=require('fs').readFileSync('cordis.patch.yml','utf8');['combo-compat','combo-web-ui-settings','combo-cost-meter','combo-aionui-panel','combo-task-board','combo-git-graph','combo-remote-web-ui','combo-ssh','combo-liangshen','combo-community-plugins'].forEach(id=>{if(!s.includes(id)){console.error('missing row '+id);process.exit(1)}});console.log('10 rows present')"
