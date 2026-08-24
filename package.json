@@ -1,6 +1,6 @@
 {
   "name": "dsh-my-combo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "DSH Web 插件整合包：引用挑选的开源插件并做兼容层处理（首页余额展示、侧边栏 footer 布局修复）。",
   "type": "module",
   "main": "lib/index.js",
@@ -41,16 +41,16 @@
     }
   },
   "dependencies": {
-    "@linxin666/dsh-client-ui-aionui-panel": "0.2.9",
-    "@linxin666/dsh-client-ui-community-plugins": "0.2.9",
-    "@linxin666/dsh-client-ui-git-graph": "0.2.9",
-    "@linxin666/dsh-client-ui-task-board": "0.2.9",
-    "@linxin666/dsh-client-ui-web-ui-settings": "0.2.9",
-    "@linxin666/dsh-liangshen": "0.2.9",
-    "@linxin666/dsh-remote-web-ui": "0.2.9",
-    "@linxin666/dsh-ssh": "0.2.9",
-    "dsh-cost-meter": "github:Han-1413141/dsh-cost-meter#v1.5.40",
-    "dshmarket": "1.18.1"
+    "@linxin666/dsh-client-ui-aionui-panel": "0.3.2",
+    "@linxin666/dsh-client-ui-community-plugins": "0.3.2",
+    "@linxin666/dsh-client-ui-git-graph": "0.3.2",
+    "@linxin666/dsh-client-ui-task-board": "0.3.2",
+    "@linxin666/dsh-client-ui-web-ui-settings": "0.3.2",
+    "@linxin666/dsh-liangshen": "0.3.2",
+    "@linxin666/dsh-remote-web-ui": "0.3.2",
+    "@linxin666/dsh-ssh": "0.3.2",
+    "dsh-cost-meter": "github:Han-1413141/dsh-cost-meter#v1.5.42",
+    "dshmarket": "1.21.2"
   },
   "repository": {
     "type": "git",
